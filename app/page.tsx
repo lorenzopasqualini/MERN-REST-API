@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Link from 'next/link';
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -19,6 +20,8 @@ const Home = () => {
 
   return (
     <div>
+      <h1>Public API Users + MongoDB Users</h1>
+      <Link href="/new-user">Create New User</Link>
       <ul>
         {users.map((user: any) => (
           <li key={user.id} style={{ margin: '2rem 0' }}>
