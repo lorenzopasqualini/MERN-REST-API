@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -18,20 +19,22 @@ const Home = () => {
     fetch();
   }, []);
 
-  return (
-    <div>
-      <h1>Public API Users + MongoDB Users</h1>
-      <Link href="/new-user">Create New User</Link>
-      <ul>
+  return (     
+    <div className='container'>
+      <ul className='list'>
         {users.map((user: any) => (
-          <li key={user.id} style={{ margin: '2rem 0' }}>
-            <p>Name: {user.name}</p>
-            <p>Username: {user.username}</p>
-            <p>Email: {user.email}</p>
-            <p>Address: {user.address.street} {user.address.suite}</p>
+          <li key={user.id} className='item'>
+            <Image src="/pfp.webp" alt="pfp" width={40} height={40} style={{ borderRadius: '2rem' }} />
+            <div className='info'>
+              <p>{user.username}</p>
+              <strong>{user.name}</strong>
+              <span>{user.email}</span>
+              <p>{user.address.street} {user.address.suite}</p>
+            </div>
           </li>
         ))}
       </ul>
+      <Link href="/new-user" className='add'>+</Link>
     </div>
   );
 };

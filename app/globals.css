@@ -5,10 +5,6 @@
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
     #16abff33 0deg,
@@ -87,12 +83,7 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #111517
 }
 
 a {
@@ -104,4 +95,73 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+/* Index */
+
+.list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  list-style: none;
+  margin: 0.5rem;
+}
+
+.item{
+  display: flex;
+  gap: 1rem;
+  background-color: #1B2A2F;
+  padding: 1rem;
+  border-radius: 0.2rem;
+  width: 24rem;
+  user-select: none;
+  transition: transform .2s
+}
+
+.item:hover{
+  transform: scale(1.05);
+  border: 0.1rem solid #46F8BF;
+}
+
+.info{
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.add{
+  position: fixed;
+  background-color: #46F8BF;
+  color: #111517;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+  border-radius: 12rem;
+  bottom: 2rem;
+  right: 2rem;
+  font-weight: 900;
+}
+
+span{
+  color: #46F8BF;
+}
+
+/* New User */
+
+.form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.create{
+  background-color: #46F8BF;
+  color: #111517;
+  width: 20%;
+  padding: 1rem 0;
+  cursor: pointer;
+  font-weight: 900;
 }

@@ -37,13 +37,13 @@ const NewUser = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="name" placeholder="Name" onChange={(e) => setForm({ ...form, name: e.target.value })} />
-      <input type="text" name="username" placeholder="Username" onChange={(e) => setForm({ ...form, username: e.target.value })} />
-      <input type="email" name="email" placeholder="E-Mail" onChange={(e) => setForm({ ...form, email: e.target.value })} />
-      <input type="text" name="street" placeholder="Street" onChange={(e) => setForm({ ...form, address: { ...form.address, street: e.target.value } })} />
-      <input type="text" name="suite" placeholder="Suite" onChange={(e) => setForm({ ...form, address: { ...form.address, suite: e.target.value } })} />
-      <button type="submit">Create</button>
+    <form onSubmit={handleSubmit} className='form'>
+      <input className='item' type="text" name="name" placeholder="Name" onChange={(e) => setForm({ ...form, name: e.target.value })} />
+      <input className='item' type="text" name="username" placeholder="Username" onChange={(e) => setForm({ ...form, username: e.target.value })} />
+      <input className='item' type="email" name="email" placeholder="E-Mail" onChange={(e) => setForm({ ...form, email: e.target.value })} />
+      <input className='item' type="text" name="street" placeholder="Street" onChange={(e) => setForm({ ...form, address: { ...form.address, street: e.target.value } })} />
+      <input className='item' type="text" name="suite" placeholder="Suite" onChange={(e) => setForm({ ...form, address: { ...form.address, suite: e.target.value } })} />
+      <button type="submit" className='create'>Create</button>
     </form>
   );
 };
