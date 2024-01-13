@@ -6,12 +6,22 @@ import axios from 'axios';
 export async function GET(req: NextRequest, res: NextResponse){
   await dbConnect()
   try {
-    const dbUsers = await User.find({})
-
     const fetchApi = await axios.get('https://jsonplaceholder.typicode.com/users');
     const tpUsers = fetchApi.data;
 
-    const allUsers = [...tpUsers, ...dbUsers];
+    for (const user of tpUsers) {
+      const existingUser = await User.findOne({ external_id: user.id });
+      if (!existingUser) {
+        try {
+          const newUser = new User({ external_id: user.id, ...user });
+          await newUser.save();
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+
+    const allUsers = await User.find({});
     return NextResponse.json({ status: 200, message: 'success', data: allUsers })
   } catch (error) {
     return NextResponse.json({ status: 500, message: 'failure' })

@@ -9,7 +9,10 @@ const NewUser = () => {
     name: "",
     username: "",
     email: "",
-    address: "",
+    address: {
+      street: "",
+      suite: "",
+    },
   });
 
   const handleSubmit = async (e: any) => {
@@ -21,7 +24,10 @@ const NewUser = () => {
           name: form.name,
           username: form.username,
           email: form.email,
-          address: form.address,
+          address: {
+            street: form.address.street,
+            suite: form.address.suite,
+          },
         })
       });
       router.push('/')
@@ -35,7 +41,8 @@ const NewUser = () => {
       <input type="text" name="name" placeholder="Name" onChange={(e) => setForm({ ...form, name: e.target.value })} />
       <input type="text" name="username" placeholder="Username" onChange={(e) => setForm({ ...form, username: e.target.value })} />
       <input type="email" name="email" placeholder="E-Mail" onChange={(e) => setForm({ ...form, email: e.target.value })} />
-      <input type="text" name="address" placeholder="Address" onChange={(e) => setForm({ ...form, address: e.target.value })} />
+      <input type="text" name="street" placeholder="Street" onChange={(e) => setForm({ ...form, address: { ...form.address, street: e.target.value } })} />
+      <input type="text" name="suite" placeholder="Suite" onChange={(e) => setForm({ ...form, address: { ...form.address, suite: e.target.value } })} />
       <button type="submit">Create</button>
     </form>
   );

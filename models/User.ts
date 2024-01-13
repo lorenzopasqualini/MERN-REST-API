@@ -5,6 +5,7 @@ export interface User extends mongoose.Document {
   username: string
   email: string
   address: string
+  external_id: number
 }
 
 const UserSchema = new mongoose.Schema<User>({
@@ -16,7 +17,7 @@ const UserSchema = new mongoose.Schema<User>({
   username: {
     type: String,
     required: [true, 'Username is required'],
-    maxlength: [15, 'Username cannot be more than 15 characters'],
+    maxlength: [40, 'Username cannot be more than 40 characters'],
     unique: true,
   },
   email: {
@@ -26,9 +27,20 @@ const UserSchema = new mongoose.Schema<User>({
     unique: true,
   },
   address: {
-    type: String,
-    required: [true, 'Address is required'],
-    maxlength: [80, 'Address cannot be more than 80 characters'],
+    street:{
+      type: String,
+      required: [true, 'Street address is required'],
+      maxlength: [80, 'Street address cannot be more than 80 characters'],
+    },
+    suite:{
+      type: String,
+      required: [true, 'Suite address is required'],
+      maxlength: [40, 'Street address cannot be more than 40 characters'],
+    }
+  },
+  external_id: {
+    type: Number,
+    required: true,
   },
 })
 

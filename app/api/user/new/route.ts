@@ -7,8 +7,15 @@ export async function POST(req: NextRequest, res: NextResponse){
 
     try {
       await dbConnect();
+      const tpUserId = await User.findOne().sort({ external_id: -1 });
 
-      const newUser = new User({ name, username, email, address });
+      const newUser = new User({
+        name,
+        username,
+        email,
+        address,
+        external_id: tpUserId?.external_id + 1,
+      });
       await newUser.save();
       return NextResponse.json({ message: 'success' })
     } catch (err) {
