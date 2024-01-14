@@ -17,8 +17,13 @@ const NewUser = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (!form.name || !form.username || !form.email || !form.address.street || !form.address.suite){
+      toast.error("Some fields are missing");
+      return;
+    }
+
     try {
-      await fetch("/api/user/new", {
+      const response = await fetch("/api/user/new", {
         method: "POST",
         body: JSON.stringify({
           name: form.name,
@@ -28,9 +33,24 @@ const NewUser = () => {
             street: form.address.street,
             suite: form.address.suite,
           },
-        })
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
-      router.push('/')
+
+      const data = await response.json()
+      if (data.success) {
+        toast.success('User was successfully created');
+        router.push('/');
+      } else if (data.message === 'Username already exists') {
+        toast.error('Username already exists');
+      } else if (data.message === 'Mail already exists') {
+        toast.error('Mail already exists');
+      } else {
+        toast.error('An error occurred. Try again later')
+      }
+
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +63,7 @@ const NewUser = () => {
       <input className='item' type="email" name="email" placeholder="E-Mail" onChange={(e) => setForm({ ...form, email: e.target.value })} />
       <input className='item' type="text" name="street" placeholder="Street" onChange={(e) => setForm({ ...form, address: { ...form.address, street: e.target.value } })} />
       <input className='item' type="text" name="suite" placeholder="Suite" onChange={(e) => setForm({ ...form, address: { ...form.address, suite: e.target.value } })} />
-      <button type="submit" className='create'>Create</button>
+      <button type="submit" className='item' id='create'>Create</button>
     </form>
   );
 };

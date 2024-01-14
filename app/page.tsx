@@ -34,7 +34,7 @@ const Home = () => {
           </li>
         ))}
       </ul>
-      <Link href="/new-user" className='add'>+</Link>
+      <Link href="/new-user" id='add'>+</Link>
     </div>
   );
 };
