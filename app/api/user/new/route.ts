@@ -27,8 +27,9 @@ export async function POST(req: NextRequest, res: NextResponse){
         external_id: tpUserId?.external_id + 1,
       });
       await newUser.save();
-      return NextResponse.json({ success: true })
+
+      return NextResponse.json({ status: 200, success: true })
     } catch (err) {
-      return NextResponse.json({ success: false })
+      return NextResponse.json({ status: 500, success: false })
     }
 }
