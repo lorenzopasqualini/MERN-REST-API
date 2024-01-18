@@ -4,9 +4,11 @@ import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation'
 
 const Home = () => {
   const [users, setUsers] = useState([]);
+  const router = useRouter()
 
   useEffect(() => {
     const fetch = async () => {
@@ -26,6 +28,7 @@ const Home = () => {
       const data = await response.json();
       setUsers(data.data);
       toast.success('Re-synced with public API')
+      router.refresh()
     } catch (error) {
       console.error(error);
       toast.error('Failed to re-sync with public API')
