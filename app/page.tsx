@@ -60,10 +60,10 @@ const Home = () => {
   };
 
   return (     
-    <div className='container'>
+    <>
       <ul className='list'>
         {users.map((user: any) => (
-          <Link key={user.id} href={/user/${user.external_id}}>
+          <Link key={user.id} href={`/user/${user.external_id}`}>
             <li className='item'>
               <Image src="/pfp.webp" alt="pfp" width={40} height={40} style={{ borderRadius: '2rem' }} />
               <div className='info'>
@@ -79,7 +79,7 @@ const Home = () => {
       <Link href="/new-user" id='add'>+</Link>
       <Link href="/" onClick={sync} id='sync'>Sync</Link>
       {!users ? null : JSON.stringify(users)}
-    </div>
+    </>
   );
 };
 
