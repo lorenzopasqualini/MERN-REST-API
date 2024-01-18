@@ -38,22 +38,26 @@ const Home = () => {
     //   toast.error('Failed to re-sync with public API')
     // }
     try {
+      const userList = await axios.get('https://jsonplaceholder.typicode.com/users');
+      const userListData = userList.data;
+      console.log(userListData);
+
+      if (!userListData) {
+        console.error('No data');
+        return;
+      } else {
+        console.log("DATA", userListData);
+      }
       const response = await fetch('/api/sync', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: "tetetstst",
-          username: "tetetstst",
-          email: "string@oaa.com",
-          address: "tetetstst",
-          external_id: 123,
-        }),
+        body: JSON.stringify(userListData),
       });
 
       const data = await response.json();
-      console.log(data);
+      console.log("END:",data);
     } catch (error) {
       console.error(error);
     }
