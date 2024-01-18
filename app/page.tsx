@@ -54,6 +54,7 @@ const Home = () => {
       </ul>
       <Link href="/new-user" id='add'>+</Link>
       <Link href="/" onClick={sync} id='sync'>Sync</Link>
+      {!users ? null : JSON.stringify(users)}
     </div>
   );
 };
