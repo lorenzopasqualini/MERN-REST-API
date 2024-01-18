@@ -58,6 +58,7 @@ const Home = () => {
 
       const data = await response.json();
       console.log("END:",data);
+      router.refresh()
     } catch (error) {
       console.error(error);
     }
