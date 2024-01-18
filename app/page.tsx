@@ -42,23 +42,34 @@ const Home = () => {
       const userListData = userList.data;
       console.log(userListData);
 
+
+      // si users !=== userListData entonces enviá users, de lo contrario userlisdata
+      setUsers(userListData);
+
+      console.log("COMPARA", users, userListData)
+
+
+
       if (!userListData) {
         console.error('No data');
         return;
       } else {
         console.log("DATA", userListData);
       }
-      const response = await fetch('/api/sync', { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userListData),
-      });
 
-      const data = await response.json();
-      console.log("END:",data);
-      router.refresh()
+      if (users !== userListData) {
+        const response = await fetch('/api/sync', { 
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(users),
+        });
+        
+        const data = await response.json();
+        setUsers(data.data);
+        console.log("END:",data);
+      }
     } catch (error) {
       console.error(error);
     }
