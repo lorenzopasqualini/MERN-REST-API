@@ -15,25 +15,47 @@ const Home = () => {
       try {
         const response = await axios.get('/api/user');
         setUsers(response.data.data);
-        console.log(users);
+        // console.log(users);
         
       } catch (error) {
         console.error(error);
       }
     };
     fetch();
-  }, [users]);
+  }, []);
   
   const sync = async () => {
+    // try {
+    //   const response = await axios.post('/api/sync');
+    //   const data = await response.json();
+    //   // setUsers(data.data);
+
+    //   console.log(data);
+    //   // toast.success('Re-synced with public API')
+    //   // router.refresh()
+    // } catch (error) {
+    //   console.error(error);
+    //   toast.error('Failed to re-sync with public API')
+    // }
     try {
-      const response = await fetch('/api/sync');
+      const response = await fetch('/api/sync', { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: "tetetstst",
+          username: "tetetstst",
+          email: "string@oaa.com",
+          address: "tetetstst",
+          external_id: 123,
+        }),
+      });
+
       const data = await response.json();
-      setUsers(data.data);
-      toast.success('Re-synced with public API')
-      router.refresh()
+      console.log(data);
     } catch (error) {
       console.error(error);
-      toast.error('Failed to re-sync with public API')
     }
   };
 
@@ -41,7 +63,7 @@ const Home = () => {
     <div className='container'>
       <ul className='list'>
         {users.map((user: any) => (
-          <Link key={user.id} href={`/user/${user.external_id}`}>
+          <Link key={user.id} href={/user/${user.external_id}}>
             <li className='item'>
               <Image src="/pfp.webp" alt="pfp" width={40} height={40} style={{ borderRadius: '2rem' }} />
               <div className='info'>
