@@ -15,13 +15,15 @@ const Home = () => {
       try {
         const response = await axios.get('/api/user');
         setUsers(response.data.data);
+        console.log(users);
+        
       } catch (error) {
         console.error(error);
       }
     };
     fetch();
-  }, []);
-
+  }, [users]);
+  
   const sync = async () => {
     try {
       const response = await fetch('/api/sync');
