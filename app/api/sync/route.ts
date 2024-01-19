@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import User from "@/models/User";
 import dbConnect from "@/lib/dbConnect";
-import axios from 'axios';
 
 export async function POST(req: NextRequest, res: NextResponse){
   await dbConnect()

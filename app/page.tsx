@@ -3,49 +3,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation'
 
 const Home = () => {
   const [users, setUsers] = useState([]);
-  const router = useRouter()
-
-/*   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('/api/user');
-        setUsers(response.data.data);        
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUsers();
-
-    const sync = async () => {
-      try {
-        const publicApi = await axios.get('https://jsonplaceholder.typicode.com/users');
-        const publicApiData = publicApi.data;
-        setUsers(publicApiData);
-
-        if (users !== publicApiData) {
-          const response = await fetch('/api/sync', { 
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(users),
-          });
-
-          const syncUsers = await response.json();
-          setUsers(syncUsers.data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    sync();
-  }, []);
-*/
 
   useEffect(() => {
     const fetchAndSync = async () => {
@@ -95,7 +55,6 @@ const Home = () => {
         ))}
       </ul>
       <Link href="/new-user" id='add'>+</Link>
-      {!users ? null : JSON.stringify(users)}
     </>
   );
 };

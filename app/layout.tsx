@@ -8,8 +8,8 @@ import Footer from '@/components/footer';
 const font = Roboto({ weight: '300', subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'LP-FTY',
-  description: 'fty-a',
+  title: 'Pasqualini FTY Assessment',
+  description: 'Fetch a public API of users, populate it to a MongoDB collection and enable a CRUD of users top of it, with instantaneous synchronization.',
 }
 
 export default function RootLayout({

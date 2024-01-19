@@ -148,20 +148,7 @@ a {
   transition: transform .2s
 }
 
-#sync{
-  position: fixed;
-  background-color: #46F8BF;
-  color: #111517;
-  padding: 1rem 2rem;
-  margin: 0.5rem;
-  border-radius: 12rem;
-  bottom: 6rem;
-  right: 2rem;
-  font-weight: 900;
-  transition: transform .2s
-}
-
-#add:hover, #sync:hover{
+#add:hover{
   transform: scale(1.2);
 }
 
