@@ -10,72 +10,74 @@ const Home = () => {
   const [users, setUsers] = useState([]);
   const router = useRouter()
 
-  useEffect(() => {
-    const fetch = async () => {
+/*   useEffect(() => {
+    const fetchUsers = async () => {
       try {
         const response = await axios.get('/api/user');
-        setUsers(response.data.data);
-        // console.log(users);
-        
+        setUsers(response.data.data);        
       } catch (error) {
         console.error(error);
       }
     };
-    fetch();
+    fetchUsers();
+
+    const sync = async () => {
+      try {
+        const publicApi = await axios.get('https://jsonplaceholder.typicode.com/users');
+        const publicApiData = publicApi.data;
+        setUsers(publicApiData);
+
+        if (users !== publicApiData) {
+          const response = await fetch('/api/sync', { 
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(users),
+          });
+
+          const syncUsers = await response.json();
+          setUsers(syncUsers.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    sync();
+  }, []);
+*/
+
+  useEffect(() => {
+    const fetchAndSync = async () => {
+      try {
+        const fetchDbUsers = await axios.get('/api/user');
+        const dbUsers = fetchDbUsers.data.data;
+  
+        const fetchPublicApi = await axios.get('https://jsonplaceholder.typicode.com/users');
+        const apiUsers = fetchPublicApi.data;
+
+        if (JSON.stringify(dbUsers) !== JSON.stringify(apiUsers)) {
+          const syncResponse = await fetch('/api/sync', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dbUsers),
+          });
+  
+          const syncUsers = await syncResponse.json();
+          setUsers(syncUsers.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchAndSync();
   }, []);
   
-  const sync = async () => {
-    // try {
-    //   const response = await axios.post('/api/sync');
-    //   const data = await response.json();
-    //   // setUsers(data.data);
 
-    //   console.log(data);
-    //   // toast.success('Re-synced with public API')
-    //   // router.refresh()
-    // } catch (error) {
-    //   console.error(error);
-    //   toast.error('Failed to re-sync with public API')
-    // }
-    try {
-      const userList = await axios.get('https://jsonplaceholder.typicode.com/users');
-      const userListData = userList.data;
-      console.log(userListData);
-
-
-      // si users !=== userListData entonces enviá users, de lo contrario userlisdata
-      setUsers(userListData);
-
-      console.log("COMPARA", users, userListData)
-
-
-
-      if (!userListData) {
-        console.error('No data');
-        return;
-      } else {
-        console.log("DATA", userListData);
-      }
-
-      if (users !== userListData) {
-        const response = await fetch('/api/sync', { 
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(users),
-        });
-        
-        const data = await response.json();
-        setUsers(data.data);
-        console.log("END:",data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return (     
+  return (
     <>
       <ul className='list'>
         {users.map((user: any) => (
@@ -93,7 +95,6 @@ const Home = () => {
         ))}
       </ul>
       <Link href="/new-user" id='add'>+</Link>
-      <Link href="/" onClick={sync} id='sync'>Sync</Link>
       {!users ? null : JSON.stringify(users)}
     </>
   );
